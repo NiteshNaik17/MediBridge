@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient Dashboard - MediBridge AI</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
   <div class="app-container">
-    <!-- Sidebar -->
+    <!-- Patient Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+        <a href="../index.html" class="logo" style="font-size: 1.2rem;">
           <i class="fa-solid fa-heart-pulse"></i>
           <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
         </a>
@@ -21,104 +22,96 @@
 
       <ul class="sidebar-menu">
         <li class="sidebar-item active">
-          <a href="/patient/dashboard.html"><i class="fa-solid fa-chart-line"></i> <span class="menu-text">Dashboard</span></a>
+          <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
         </li>
         <li class="sidebar-item">
-          <a href="/patient/profile.html"><i class="fa-solid fa-user-doctor"></i> <span class="menu-text">Health Profile</span></a>
+          <a href="profile.html"><i class="fa-solid fa-user"></i> Health Profile</a>
         </li>
         <li class="sidebar-item">
-          <a href="/patient/timeline.html"><i class="fa-solid fa-timeline"></i> <span class="menu-text">Medical Timeline</span></a>
+          <a href="timeline.html"><i class="fa-solid fa-timeline"></i> Medical Timeline</a>
         </li>
         <li class="sidebar-item">
-          <a href="/patient/upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> <span class="menu-text">Upload Reports</span></a>
+          <a href="upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Reports</a>
         </li>
         <li class="sidebar-item">
-          <a href="/patient/emergency.html"><i class="fa-solid fa-truck-medical"></i> <span class="menu-text">Emergency Card</span></a>
+          <a href="emergency.html"><i class="fa-solid fa-id-card"></i> Emergency Card</a>
         </li>
       </ul>
 
       <div class="sidebar-footer">
-        <div class="user-badge">
-          <div class="avatar">SC</div>
+        <div class="user-badge" style="margin-bottom: 10px;">
+          <div class="avatar" id="patient-avatar-initials">SC</div>
           <div>
-            <h4 style="font-size: 0.85rem;" id="pat-name">Sarah Connor</h4>
-            <span style="font-size: 0.75rem; color: var(--primary-500);" id="pat-health-id">MB-9082-4112</span>
+            <h4 style="font-size: 0.85rem;" id="patient-sidebar-name">Sarah Connor</h4>
+            <span style="font-size: 0.75rem; color: var(--text-muted);" id="patient-sidebar-id">MB-9082-4112</span>
           </div>
         </div>
-        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%; margin-top: 10px;">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </button>
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
       </div>
     </aside>
 
-    <!-- Main Portal Content -->
+    <!-- Main Content Area -->
     <main class="main-content">
       <div class="top-header">
         <div>
-          <h1>Patient Health Dashboard</h1>
-          <p class="text-muted">Centralized Personal Health Records & AI Intelligence</p>
+          <h1 id="dashboard-welcome-name">Welcome Back, Sarah</h1>
+          <p class="text-muted">Centralized view of your personal health metrics & hospital connections</p>
         </div>
-        <div class="header-actions">
-          <a href="/patient/emergency.html" class="btn btn-green">
-            <i class="fa-solid fa-qrcode"></i> View Emergency QR Card
-          </a>
+        <div style="display: flex; gap: 10px;">
+          <a href="upload.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Upload Medical Document</a>
+          <a href="emergency.html" class="btn btn-secondary"><i class="fa-solid fa-qrcode"></i> View Emergency QR Pass</a>
         </div>
       </div>
 
-      <!-- AI Summary Banner Container -->
-      <div id="ai-summary-container"></div>
-
-      <!-- Quick Metrics Grid -->
+      <!-- Quick Metrics Cards -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon"><i class="fa-solid fa-droplet"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="pat-blood-group">O+</div>
-            <div class="stat-label">Blood Group</div>
-          </div>
+          <span class="stat-title">Digital Health ID</span>
+          <span class="stat-value" style="font-size: 1.2rem; color: var(--primary-500);" id="dash-health-id">MB-9082-4112</span>
+          <span class="badge badge-success" style="margin-top: 6px;"><i class="fa-solid fa-check"></i> Verified</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon green"><i class="fa-solid fa-user-clock"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="pat-age-gender">34 Y/O (Female)</div>
-            <div class="stat-label">Age & Gender</div>
-          </div>
+          <span class="stat-title">Blood Group</span>
+          <span class="stat-value" style="color: #ef4444;" id="dash-blood-group">O-Positive (O+)</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Universal Donor</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon purple"><i class="fa-solid fa-shield-virus"></i></div>
-          <div class="stat-info">
-            <div class="stat-label" style="font-size: 0.8rem; text-transform: uppercase;">Known Allergies</div>
-            <div id="pat-allergies-list" style="margin-top: 4px;"><span class="badge badge-danger">Penicillin</span></div>
-          </div>
+          <span class="stat-title">Connected Hospitals</span>
+          <span class="stat-value" id="dash-hospital-count">2 Institutions</span>
+          <span style="font-size: 0.8rem; color: var(--accent-green); margin-top: 6px;"><i class="fa-solid fa-shield"></i> Access Granted</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-title">Emergency Contact</span>
+          <span class="stat-value" style="font-size: 1.05rem;" id="dash-emergency-contact">John Connor</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;" id="dash-emergency-phone">+1-555-0199</span>
         </div>
       </div>
 
-      <!-- Quick Shortcuts -->
-      <div class="features-grid" style="margin-bottom: 2rem;">
-        <div class="card" style="margin-bottom: 0;">
-          <h3 style="margin-bottom: 0.8rem; font-size: 1.1rem;"><i class="fa-solid fa-timeline" style="color: var(--primary-500);"></i> Interactive Timeline</h3>
-          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Review your year-by-year clinical medical timeline updated automatically from hospital uploads.</p>
-          <a href="/patient/timeline.html" class="btn btn-outline btn-sm">Explore Timeline</a>
-        </div>
+      <!-- AI Clinical Insights Banner -->
+      <div class="ai-banner">
+        <h4><i class="fa-solid fa-brain"></i> AI Clinical Summary & Recent Diagnostics</h4>
+        <p style="margin-top: 8px; font-size: 0.9rem;" id="patient-ai-summary">
+          Analysing records...
+        </p>
+      </div>
 
-        <div class="card" style="margin-bottom: 0;">
-          <h3 style="margin-bottom: 0.8rem; font-size: 1.1rem;"><i class="fa-solid fa-file-arrow-up" style="color: var(--accent-green);"></i> Upload Old Reports</h3>
-          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Scan your previous paper prescriptions or lab PDFs with our built-in OCR document reader.</p>
-          <a href="/patient/upload.html" class="btn btn-secondary btn-sm">Upload & Scan</a>
+      <!-- Recent Timeline Preview -->
+      <div class="card" style="margin-top: 1.5rem;">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Medical Activity</h3>
+          <a href="timeline.html" class="btn btn-outline btn-sm">View Full Timeline</a>
         </div>
-
-        <div class="card" style="margin-bottom: 0;">
-          <h3 style="margin-bottom: 0.8rem; font-size: 1.1rem;"><i class="fa-solid fa-hospital" style="color: #9333ea;"></i> Hospital Access</h3>
-          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Manage connected healthcare providers and authorize medical history sharing.</p>
-          <a href="/patient/profile.html" class="btn btn-outline btn-sm">Manage Permissions</a>
+        <div id="dashboard-recent-timeline">
+          <!-- Populated by JS -->
         </div>
       </div>
     </main>
   </div>
 
-  <script src="/js/auth.js"></script>
-  <script src="/js/patient.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/patient.js"></script>
 </body>
 </html>
