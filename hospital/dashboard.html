@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hospital Dashboard - MediBridge AI</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
   <div class="app-container">
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+        <a href="../index.html" class="logo" style="font-size: 1.2rem;">
           <i class="fa-solid fa-heart-pulse"></i>
           <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
         </a>
@@ -21,148 +21,89 @@
 
       <ul class="sidebar-menu">
         <li class="sidebar-item active">
-          <a href="/hospital/dashboard.html"><i class="fa-solid fa-chart-line"></i> <span class="menu-text">Dashboard</span></a>
+          <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Clinical Dashboard</a>
         </li>
         <li class="sidebar-item">
-          <a href="/hospital/patients.html"><i class="fa-solid fa-hospital-user"></i> <span class="menu-text">Patients</span></a>
+          <a href="patients.html"><i class="fa-solid fa-hospital-user"></i> Patient Directory</a>
         </li>
         <li class="sidebar-item">
-          <a href="/hospital/records.html"><i class="fa-solid fa-file-medical"></i> <span class="menu-text">Medical Records</span></a>
+          <a href="records.html"><i class="fa-solid fa-file-prescription"></i> Medical Records</a>
         </li>
         <li class="sidebar-item">
-          <a href="/hospital/appointments.html"><i class="fa-solid fa-calendar-check"></i> <span class="menu-text">Appointments</span></a>
+          <a href="appointments.html"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
         </li>
       </ul>
 
       <div class="sidebar-footer">
         <div class="user-badge" style="margin-bottom: 10px;">
-          <div class="avatar" id="hosp-sidebar-avatar">H</div>
+          <div class="avatar" style="background: var(--accent-green);" id="hosp-sidebar-avatar">AG</div>
           <div>
-            <h4 style="font-size: 0.85rem;" id="hosp-sidebar-name">Hospital Portal</h4>
-            <span style="font-size: 0.75rem; color: var(--accent-green);" id="hosp-sidebar-status"><i class="fa-solid fa-circle-check"></i> Institutional Account</span>
+            <h4 style="font-size: 0.85rem;" id="hosp-sidebar-name">Apollo General</h4>
+            <span style="font-size: 0.75rem; color: var(--accent-green);" id="hosp-sidebar-status"><i class="fa-solid fa-check"></i> Approved</span>
           </div>
         </div>
-        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </button>
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
       </div>
     </aside>
 
-    <!-- Main Portal Content -->
     <main class="main-content">
       <div class="top-header">
         <div>
-          <h1 id="hosp-header-title">Hospital Clinical Overview</h1>
-          <p class="text-muted" id="hosp-header-sub">Manage Hospital Doctors, Patients & Verified Digital Records</p>
+          <h1 id="hosp-dashboard-title">Apollo General Hospital Dashboard</h1>
+          <p class="text-muted">Clinical records management, AI OCR scanner, and patient access directory</p>
         </div>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="openUploadModal()">
-            <i class="fa-solid fa-plus"></i> Upload & AI Scan Report
-          </button>
+        <div style="display: flex; gap: 10px;">
+          <a href="records.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Upload Patient Record</a>
         </div>
       </div>
 
-      <!-- Stat Cards -->
+      <!-- Quick Metrics Cards -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-total-patients">0</div>
-            <div class="stat-label">Connected Patients</div>
-          </div>
+          <span class="stat-title">Hospital License ID</span>
+          <span class="stat-value" style="font-size: 1.15rem; color: var(--primary-500);" id="hosp-stat-id">hosp-101</span>
+          <span class="badge badge-success" style="margin-top: 6px;"><i class="fa-solid fa-circle-check"></i> Admin Verified</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon green"><i class="fa-solid fa-file-prescription"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-total-records">0</div>
-            <div class="stat-label">Verified Medical Records</div>
-          </div>
+          <span class="stat-title">Total Active Patients</span>
+          <span class="stat-value" id="hosp-stat-patients">124</span>
+          <span style="font-size: 0.8rem; color: var(--accent-green); margin-top: 6px;">Connected Profiles</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon purple"><i class="fa-solid fa-user-doctor"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-total-doctors">0</div>
-            <div class="stat-label">Hospital Doctors</div>
-          </div>
+          <span class="stat-title">Staff Doctors</span>
+          <span class="stat-value" id="hosp-stat-doctors">8 Doctors</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Across 4 Specialties</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon orange"><i class="fa-solid fa-calendar-day"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-total-appointments">0</div>
-            <div class="stat-label">Scheduled Consultations</div>
-          </div>
+          <span class="stat-title">Records Uploaded</span>
+          <span class="stat-value" id="hosp-stat-records">48 Documents</span>
+          <span style="font-size: 0.8rem; color: var(--primary-500); margin-top: 6px;">AI OCR Verified</span>
         </div>
       </div>
 
-      <!-- Doctor Directory Section -->
-      <div class="card">
+      <!-- Recent Uploaded Medical Records Table -->
+      <div class="card" style="margin-top: 1.5rem;">
         <div class="card-header">
-          <h3 class="card-title"><i class="fa-solid fa-user-doctor"></i> Hospital Medical Doctors</h3>
-        </div>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Doctor Name</th>
-                <th>Specialty / Department</th>
-                <th>Qualifications</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="doctors-tbody">
-              <!-- Dynamically Populated by hospital.js -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Recent Uploads Section -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> Recent Clinical Uploads</h3>
-          <a href="/hospital/records.html" class="btn btn-outline btn-sm">View All Records</a>
-        </div>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Record ID</th>
-                <th>Attending Doctor</th>
-                <th>Category</th>
-                <th>Diagnosis Summary</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="recent-records-tbody">
-              <!-- Dynamically Populated by hospital.js -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Scheduled Appointments -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title"><i class="fa-solid fa-calendar-check"></i> Upcoming Consultations</h3>
-          <a href="/hospital/appointments.html" class="btn btn-outline btn-sm">Manage Schedule</a>
+          <h3 class="card-title"><i class="fa-solid fa-file-medical"></i> Recent Clinical Records Uploaded</h3>
+          <a href="records.html" class="btn btn-outline btn-sm">View All Records</a>
         </div>
         <div class="table-responsive">
           <table class="data-table">
             <thead>
               <tr>
                 <th>Patient Name</th>
-                <th>Doctor</th>
-                <th>Department</th>
-                <th>Schedule Date & Time</th>
+                <th>Health ID</th>
+                <th>Diagnosis / Condition</th>
+                <th>Physician</th>
+                <th>Date</th>
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody id="appointments-tbody">
-              <!-- Populated by JS -->
+            <tbody id="hosp-dashboard-records-tbody">
+              <!-- Dynamically Populated by hospital.js -->
             </tbody>
           </table>
         </div>
@@ -170,67 +111,7 @@
     </main>
   </div>
 
-  <!-- Upload & AI Scan Modal -->
-  <div class="modal-overlay" id="upload-modal">
-    <div class="modal-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
-        <h3 style="color: var(--primary-500);"><i class="fa-solid fa-wand-magic-sparkles"></i> Upload & AI OCR Scan Report</h3>
-        <button onclick="closeModal()" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
-      </div>
-
-      <form id="record-upload-form" onsubmit="submitHospitalRecord(event)">
-        <div class="form-group">
-          <label for="select-patient">Select Patient</label>
-          <select id="select-patient" class="form-control">
-            <!-- Populated dynamically -->
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Medical Report / Prescription Document File</label>
-          <input type="file" id="medical-file" class="form-control" accept=".pdf,.png,.jpg,.jpeg,.txt">
-          <button type="button" class="btn btn-secondary btn-sm" id="scan-btn" onclick="scanMedicalDocument()" style="margin-top: 8px; width: 100%;">
-            <i class="fa-solid fa-file-medical"></i> Scan with AI OCR
-          </button>
-        </div>
-
-        <!-- AI Preview Box -->
-        <div id="ocr-preview-results" style="display: none; margin-bottom: 1rem;"></div>
-
-        <div class="form-group">
-          <label for="doctor_name">Attending Doctor Name</label>
-          <input type="text" id="doctor_name" class="form-control" placeholder="e.g. Dr. Sarah Jenkins">
-        </div>
-
-        <div class="form-group">
-          <label for="diagnosis">Clinical Diagnosis</label>
-          <input type="text" id="diagnosis" class="form-control" placeholder="e.g. Type 2 Diabetes Mellitus" required>
-        </div>
-
-        <div class="form-group">
-          <label for="medicines">Prescribed Medicines (Comma Separated)</label>
-          <input type="text" id="medicines" class="form-control" placeholder="e.g. Metformin 500mg, Atorvastatin 10mg">
-        </div>
-
-        <div class="form-group">
-          <label for="date">Record Date</label>
-          <input type="date" id="date" class="form-control" value="2026-08-07">
-        </div>
-
-        <div class="form-group">
-          <label for="doctor_notes">Doctor Clinical Notes</label>
-          <textarea id="doctor_notes" class="form-control" placeholder="Additional observations, diet recommendations, and follow-up instructions..."></textarea>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem;">
-          <button type="button" onclick="closeModal()" class="btn btn-outline">Cancel</button>
-          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> Save Medical Record</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script src="/js/auth.js"></script>
-  <script src="/js/hospital.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/hospital.js"></script>
 </body>
 </html>
