@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>System Admin Dashboard - MediBridge AI</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dashboard.css">
+  <title>Admin Dashboard - MediBridge AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
   <div class="app-container">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+        <a href="../index.html" class="logo" style="font-size: 1.2rem;">
           <i class="fa-solid fa-heart-pulse"></i>
           <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
         </a>
@@ -20,17 +21,24 @@
 
       <ul class="sidebar-menu">
         <li class="sidebar-item active">
-          <a href="/admin/dashboard.html"><i class="fa-solid fa-shield-halved"></i> Dashboard</a>
+          <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> System Analytics</a>
         </li>
         <li class="sidebar-item">
-          <a href="/admin/hospitals.html"><i class="fa-solid fa-building-circle-check"></i> Hospital Approvals</a>
+          <a href="hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals & Doctors</a>
         </li>
         <li class="sidebar-item">
-          <a href="/admin/users.html"><i class="fa-solid fa-users-gear"></i> User Directory</a>
+          <a href="users.html"><i class="fa-solid fa-users-gear"></i> User Directory</a>
         </li>
       </ul>
 
       <div class="sidebar-footer">
+        <div class="user-badge" style="margin-bottom: 10px;">
+          <div class="avatar" style="background: #9333ea;">AD</div>
+          <div>
+            <h4 style="font-size: 0.85rem;">System Admin</h4>
+            <span style="font-size: 0.75rem; color: var(--accent-green);"><i class="fa-solid fa-shield-halved"></i> Superuser</span>
+          </div>
+        </div>
         <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
       </div>
     </aside>
@@ -38,64 +46,59 @@
     <main class="main-content">
       <div class="top-header">
         <div>
-          <h1>System Governance & Monitoring</h1>
-          <p class="text-muted">MediBridge AI Platform Administration & Network Health</p>
+          <h1>Global Platform Overview</h1>
+          <p class="text-muted">System monitoring, hospital network status, and registered user metrics</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="hospitals.html" class="btn btn-primary"><i class="fa-solid fa-building-circle-check"></i> Manage Hospitals & Doctors</a>
         </div>
       </div>
 
-      <!-- Admin Stat Grid -->
+      <!-- Quick Metrics Cards -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon"><i class="fa-solid fa-hospital"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-total-hospitals">2</div>
-            <div class="stat-label">Registered Hospitals</div>
-          </div>
+          <span class="stat-title">Registered Hospitals</span>
+          <span class="stat-value" id="stat-admin-hospitals">2</span>
+          <span style="font-size: 0.8rem; color: var(--primary-500); margin-top: 6px;">Network Institutions</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-approved-hospitals">1</div>
-            <div class="stat-label">Approved Institutions</div>
-          </div>
+          <span class="stat-title">Approved Status</span>
+          <span class="stat-value" style="color: var(--accent-green);" id="stat-admin-approved">2</span>
+          <span class="badge badge-success" style="margin-top: 6px;">Active Connections</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon orange"><i class="fa-solid fa-hourglass-half"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-pending-hospitals">1</div>
-            <div class="stat-label">Pending Verification</div>
-          </div>
+          <span class="stat-title">Pending Verification</span>
+          <span class="stat-value" style="color: #f59e0b;" id="stat-admin-pending">0</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Awaiting Review</span>
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon purple"><i class="fa-solid fa-users"></i></div>
-          <div class="stat-info">
-            <div class="stat-value" id="stat-total-patients">2</div>
-            <div class="stat-label">Active Patients</div>
-          </div>
+          <span class="stat-title">Registered Users</span>
+          <span class="stat-value" id="stat-admin-patients">5</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Patients & Clinicians</span>
         </div>
       </div>
 
-      <!-- Quick Action Cards -->
-      <div class="features-grid">
-        <div class="card" style="margin-bottom: 0;">
-          <h3 style="margin-bottom: 0.6rem;"><i class="fa-solid fa-building-circle-check" style="color: var(--primary-500);"></i> Hospital Registration Requests</h3>
-          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Review official medical license numbers and approve hospital ecosystem access.</p>
-          <a href="/admin/hospitals.html" class="btn btn-primary btn-sm">Review Pending Requests</a>
+      <!-- Quick Links -->
+      <div class="features-grid" style="margin-top: 1.5rem;">
+        <div class="card">
+          <h3 style="margin-bottom: 0.8rem;"><i class="fa-solid fa-hospital" style="color: var(--primary-500);"></i> Hospitals & Doctors Directory</h3>
+          <p class="text-muted" style="font-size: 0.88rem; margin-bottom: 1.2rem;">Register official Hospital IDs, manage hospital status, assign doctors, and filter doctors by hospital.</p>
+          <a href="hospitals.html" class="btn btn-primary btn-sm">Go to Hospitals Directory</a>
         </div>
 
-        <div class="card" style="margin-bottom: 0;">
-          <h3 style="margin-bottom: 0.6rem;"><i class="fa-solid fa-users-gear" style="color: var(--accent-green);"></i> Account Management</h3>
-          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Inspect registered patients, medical staff accounts, and system roles.</p>
-          <a href="/admin/users.html" class="btn btn-secondary btn-sm">View User Directory</a>
+        <div class="card">
+          <h3 style="margin-bottom: 0.8rem;"><i class="fa-solid fa-users-gear" style="color: var(--accent-green);"></i> Global User Directory</h3>
+          <p class="text-muted" style="font-size: 0.88rem; margin-bottom: 1.2rem;">Inspect all registered accounts across patient, hospital staff, and superuser roles with sequential User IDs.</p>
+          <a href="users.html" class="btn btn-outline btn-sm">Go to User Directory</a>
         </div>
       </div>
     </main>
   </div>
 
-  <script src="/js/auth.js"></script>
-  <script src="/js/admin.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/admin.js"></script>
 </body>
 </html>
