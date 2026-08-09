@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Admin Dashboard - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active">
+          <a href="/admin/dashboard.html"><i class="fa-solid fa-shield-halved"></i> Dashboard</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/hospitals.html"><i class="fa-solid fa-building-circle-check"></i> Hospital Approvals</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/users.html"><i class="fa-solid fa-users-gear"></i> User Directory</a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-header">
+        <div>
+          <h1>System Governance & Monitoring</h1>
+          <p class="text-muted">MediBridge AI Platform Administration & Network Health</p>
+        </div>
+      </div>
+
+      <!-- Admin Stat Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-hospital"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-hospitals">2</div>
+            <div class="stat-label">Registered Hospitals</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-approved-hospitals">1</div>
+            <div class="stat-label">Approved Institutions</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="fa-solid fa-hourglass-half"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-pending-hospitals">1</div>
+            <div class="stat-label">Pending Verification</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fa-solid fa-users"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-patients">2</div>
+            <div class="stat-label">Active Patients</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Cards -->
+      <div class="features-grid">
+        <div class="card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 0.6rem;"><i class="fa-solid fa-building-circle-check" style="color: var(--primary-500);"></i> Hospital Registration Requests</h3>
+          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Review official medical license numbers and approve hospital ecosystem access.</p>
+          <a href="/admin/hospitals.html" class="btn btn-primary btn-sm">Review Pending Requests</a>
+        </div>
+
+        <div class="card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 0.6rem;"><i class="fa-solid fa-users-gear" style="color: var(--accent-green);"></i> Account Management</h3>
+          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Inspect registered patients, medical staff accounts, and system roles.</p>
+          <a href="/admin/users.html" class="btn btn-secondary btn-sm">View User Directory</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - MediBridge AI Healthcare Ecosystem</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/index.html" class="logo">
+      <i class="fa-solid fa-heart-pulse"></i>
+      <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+    </a>
+    <div class="nav-btns">
+      <a href="/register.html" class="btn btn-outline">Create Account</a>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.8rem;">Welcome Back</h2>
+        <p class="text-muted" style="font-size: 0.9rem; margin-top: 4px;">Sign in to access your MediBridge AI workspace</p>
+      </div>
+
+      <!-- Role Selector Tabs -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-role="patient"><i class="fa-solid fa-user"></i> Patient</button>
+        <button type="button" class="auth-tab" data-role="hospital"><i class="fa-solid fa-hospital"></i> Hospital</button>
+        <button type="button" class="auth-tab" data-role="admin"><i class="fa-solid fa-shield-halved"></i> Admin</button>
+      </div>
+
+      <form id="login-form">
+        <input type="hidden" id="auth-role" value="patient">
+
+        <div class="form-group">
+          <label for="email"><i class="fa-regular fa-envelope"></i> Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem; padding: 0.85rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <span class="text-muted" style="font-size: 0.85rem;">Don't have an account? <a href="/register.html">Register here</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

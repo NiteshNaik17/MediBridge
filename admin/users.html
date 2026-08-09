@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Directory - Admin Portal - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Admin Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="/admin/dashboard.html"><i class="fa-solid fa-chart-pie"></i> System Analytics</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals & Doctors</a>
+        </li>
+        <li class="sidebar-item active">
+          <a href="/admin/users.html"><i class="fa-solid fa-users-gear"></i> User Directory</a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-badge" style="margin-bottom: 10px;">
+          <div class="avatar" style="background: #9333ea;">AD</div>
+          <div>
+            <h4 style="font-size: 0.85rem;">System Admin</h4>
+            <span style="font-size: 0.75rem; color: var(--accent-green);"><i class="fa-solid fa-shield-halved"></i> Superuser</span>
+          </div>
+        </div>
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="top-header">
+        <div>
+          <h1>Global User Directory</h1>
+          <p class="text-muted">Inspect and manage all patient, hospital staff, and administrator accounts</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-solid fa-users-gear"></i> Registered System Accounts</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>System Role</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody">
+              <!-- Populated dynamically by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

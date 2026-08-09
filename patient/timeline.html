@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Timeline - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item"><a href="/patient/dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        <li class="sidebar-item"><a href="/patient/profile.html"><i class="fa-solid fa-user-doctor"></i> Health Profile</a></li>
+        <li class="sidebar-item active"><a href="/patient/timeline.html"><i class="fa-solid fa-timeline"></i> Medical Timeline</a></li>
+        <li class="sidebar-item"><a href="/patient/upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Reports</a></li>
+        <li class="sidebar-item"><a href="/patient/emergency.html"><i class="fa-solid fa-truck-medical"></i> Emergency Card</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-header">
+        <div>
+          <h1>Medical Health Timeline</h1>
+          <p class="text-muted">Chronological clinical history aggregated across all hospitals</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="timeline" id="timeline-container">
+          <!-- Populated dynamically by patient.js -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/patient.js"></script>
+</body>
+</html>

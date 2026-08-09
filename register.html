@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Account - MediBridge AI Healthcare Ecosystem</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/index.html" class="logo">
+      <i class="fa-solid fa-heart-pulse"></i>
+      <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+    </a>
+    <div class="nav-btns">
+      <a href="/login.html" class="btn btn-outline">Sign In</a>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper" style="padding-top: 2rem;">
+    <div class="auth-card" style="max-width: 600px;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.8rem;">Create Your Account</h2>
+        <p class="text-muted" style="font-size: 0.9rem; margin-top: 4px;">Join the MediBridge AI Healthcare Network</p>
+      </div>
+
+      <!-- Role Selector Tabs -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" data-role="patient"><i class="fa-solid fa-user"></i> Patient Signup</button>
+        <button type="button" class="auth-tab" data-role="hospital"><i class="fa-solid fa-user-doctor"></i> Doctor / Hospital Signup</button>
+      </div>
+
+      <form id="register-form">
+        <input type="hidden" id="auth-role" value="patient">
+
+        <div class="form-group">
+          <label for="name"><i class="fa-solid fa-user-tag"></i> Full Name</label>
+          <input type="text" id="name" class="form-control" placeholder="e.g. Dr. Sarah Jenkins or John Smith" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email"><i class="fa-regular fa-envelope"></i> Email ID (Used for Login)</label>
+          <input type="email" id="email" class="form-control" placeholder="name@domain.com" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Create password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirm_password"><i class="fa-solid fa-lock"></i> Confirm Password</label>
+            <input type="password" id="confirm_password" class="form-control" placeholder="Re-enter password" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone"><i class="fa-solid fa-phone"></i> Contact Phone Number</label>
+          <input type="text" id="phone" class="form-control" placeholder="+1 (555) 000-0000">
+        </div>
+
+        <!-- Patient Specific Fields -->
+        <div id="patient-register-fields">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" id="age" class="form-control" value="30">
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select id="gender" class="form-control">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="blood_group">Blood Group</label>
+            <select id="blood_group" class="form-control">
+              <option value="A-Positive (A+)">A-Positive (A+)</option>
+              <option value="O-Positive (O+)">O-Positive (O+)</option>
+              <option value="O-Negative (O-)">O-Negative (O-)</option>
+              <option value="A-Negative (A-)">A-Negative (A-)</option>
+              <option value="B-Positive (B+)">B-Positive (B+)</option>
+              <option value="AB-Positive (AB+)">AB-Positive (AB+)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="allergies">Known Allergies (Comma separated or "None")</label>
+            <input type="text" id="allergies" class="form-control" placeholder="e.g. Penicillin, Peanuts">
+          </div>
+
+          <!-- Emergency Contact Section -->
+          <div style="background: var(--primary-50); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--primary-200); margin-bottom: 1.2rem;">
+            <h4 style="color: var(--primary-700); margin-bottom: 0.8rem; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-truck-medical"></i> Emergency Contact Information
+            </h4>
+            <div class="form-group">
+              <label for="emergency_name">Emergency Contact Person Name</label>
+              <input type="text" id="emergency_name" class="form-control" placeholder="e.g. Clara Smith">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="emergency_relation">Relationship</label>
+                <input type="text" id="emergency_relation" class="form-control" placeholder="e.g. Spouse, Sister, Parent">
+              </div>
+              <div class="form-group">
+                <label for="emergency_phone">Emergency Phone</label>
+                <input type="text" id="emergency_phone" class="form-control" placeholder="+1-555-9988">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor / Hospital Specific Fields -->
+        <div id="hospital-register-fields" style="display: none;">
+          <div style="background: var(--primary-50); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--primary-200); margin-bottom: 1.2rem;">
+            <h4 style="color: var(--primary-700); margin-bottom: 0.8rem; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-user-doctor"></i> Doctor Credentials & Hospital Assignment
+            </h4>
+
+            <div class="form-group">
+              <label for="doctor_id_num"><i class="fa-solid fa-id-card"></i> Doctor ID</label>
+              <input type="text" id="doctor_id_num" class="form-control" placeholder="e.g. DOC-9082-41">
+            </div>
+
+            <div class="form-group">
+              <label for="hosp_id_input"><i class="fa-solid fa-hospital"></i> Hospital ID</label>
+              <input type="text" id="hosp_id_input" class="form-control" placeholder="e.g. hosp-101 or Apollo General Hospital">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label for="doc_specialty">Specialty / Department</label>
+                <input type="text" id="doc_specialty" class="form-control" placeholder="e.g. Cardiology, Neurology">
+              </div>
+              <div class="form-group">
+                <label for="doc_qualification">Qualification</label>
+                <input type="text" id="doc_qualification" class="form-control" placeholder="e.g. MD, MBBS">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.85rem;">
+          <i class="fa-solid fa-user-plus"></i> Complete Account Registration
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <span class="text-muted" style="font-size: 0.85rem;">Already registered? <a href="/login.html">Sign in here</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

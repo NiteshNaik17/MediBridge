@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Medical Passport - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <style>
+    body {
+      background: #f8fafc;
+      padding: 2rem 1rem;
+    }
+    .emergency-doc-wrapper {
+      max-width: 750px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 2px solid #ef4444;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(239, 68, 68, 0.15);
+      overflow: hidden;
+    }
+    .emergency-doc-header {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      color: #ffffff;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .emergency-doc-body {
+      padding: 2rem;
+    }
+    .info-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .info-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .info-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #ffffff; padding: 0; }
+      .emergency-doc-wrapper { border: 2px solid #000; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print" style="max-width: 750px; margin: 0 auto 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+    <a href="/index.html" class="logo">
+      <i class="fa-solid fa-heart-pulse"></i>
+      <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+    </a>
+    <button onclick="window.print()" class="btn btn-primary">
+      <i class="fa-solid fa-file-pdf"></i> Download / Print Emergency PDF
+    </button>
+  </div>
+
+  <div class="emergency-doc-wrapper">
+    <div class="emergency-doc-header">
+      <div>
+        <h2 style="color: #ffffff; font-size: 1.5rem;"><i class="fa-solid fa-truck-medical"></i> EMERGENCY CRITICAL MEDICAL PASS</h2>
+        <span style="font-size: 0.85rem; opacity: 0.9;">Verified Centralized Medical Record • MediBridge AI Ecosystem</span>
+      </div>
+      <span class="badge badge-danger" style="background: #ffffff; color: #dc2626; font-size: 0.9rem; padding: 6px 12px;">CRITICAL ER ACCESS</span>
+    </div>
+
+    <div class="emergency-doc-body">
+      <!-- Top Patient Identifiers -->
+      <div class="info-row" style="background: #fef2f2; padding: 1.2rem; border-radius: 12px; border: 1px solid #fca5a5;">
+        <div>
+          <div class="info-label">PATIENT FULL NAME</div>
+          <div class="info-value" style="font-size: 1.5rem;" id="em-name">Loading...</div>
+        </div>
+
+        <div>
+          <div class="info-label">DIGITAL HEALTH ID</div>
+          <div class="info-value" style="color: #0284c7; font-size: 1.3rem;" id="em-health-id">MB-XXXX-XXXX</div>
+        </div>
+
+        <div>
+          <div class="info-label">BLOOD GROUP</div>
+          <div class="info-value"><span class="badge badge-danger" style="font-size: 1.1rem; padding: 4px 14px;" id="em-blood-group">O+</span></div>
+        </div>
+      </div>
+
+      <!-- Demographics & Emergency Contact -->
+      <div class="info-row">
+        <div>
+          <div class="info-label">AGE & GENDER</div>
+          <div class="info-value" id="em-age-gender">--</div>
+        </div>
+
+        <div>
+          <div class="info-label"><i class="fa-solid fa-phone" style="color: #ef4444;"></i> EMERGENCY CONTACT PERSON</div>
+          <div class="info-value" id="em-contact">--</div>
+        </div>
+      </div>
+
+      <!-- Severe Allergies -->
+      <div style="margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px dashed #e2e8f0;">
+        <div class="info-label" style="color: #dc2626;"><i class="fa-solid fa-triangle-exclamation"></i> SEVERE KNOWN ALLERGIES</div>
+        <div id="em-allergies" style="margin-top: 8px;">--</div>
+      </div>
+
+      <!-- Diagnoses / Diseases / Conditions -->
+      <div style="margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px dashed #e2e8f0;">
+        <div class="info-label"><i class="fa-solid fa-stethoscope" style="color: #0284c7;"></i> MEDICAL CONDITIONS / DIAGNOSES / DISEASES</div>
+        <div id="em-conditions" style="margin-top: 8px;">--</div>
+      </div>
+
+      <!-- Active Medications -->
+      <div style="margin-bottom: 1.5rem;">
+        <div class="info-label"><i class="fa-solid fa-pills" style="color: #10b981;"></i> ACTIVE PRESCRIBED MEDICATIONS</div>
+        <div id="em-medications" style="margin-top: 8px;">--</div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; font-size: 0.8rem; color: #64748b;">
+        <p>This Emergency Medical Document is generated by <strong>MediBridge AI Centralized Healthcare Ecosystem</strong>.</p>
+        <p>For immediate paramedic verification call platform support or scan QR code.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const patientId = urlParams.get('patient_id') || 'pat-201';
+
+      try {
+        const res = await fetch(`/api/patient/emergency?patient_id=${patientId}`);
+        const data = await res.json();
+
+        if (data.success && data.emergency_card) {
+          const card = data.emergency_card;
+
+          document.getElementById('em-name').textContent = card.name || 'Patient';
+          document.getElementById('em-health-id').textContent = card.health_id || 'MB-0000-0000';
+          document.getElementById('em-blood-group').textContent = card.blood_group || 'N/A';
+          document.getElementById('em-age-gender').textContent = `${card.age || 30} Y/O (${card.gender || 'N/A'})`;
+
+          const ec = card.emergency_contact || {};
+          const ecText = (ec.name && ec.name !== 'N/A') ? `${ec.name} (${ec.relationship || 'Contact'}): ${ec.phone || 'N/A'}` : 'Not provided';
+          document.getElementById('em-contact').textContent = ecText;
+
+          // Allergies
+          const allergiesBox = document.getElementById('em-allergies');
+          if (card.allergies && card.allergies.length > 0) {
+            allergiesBox.innerHTML = card.allergies.map(a => `<span class="badge badge-danger" style="font-size: 0.95rem; margin-right: 6px; padding: 4px 10px;">${a}</span>`).join('');
+          } else {
+            allergiesBox.innerHTML = `<span class="badge badge-info">No known severe allergies</span>`;
+          }
+
+          // Conditions / Diseases
+          const condBox = document.getElementById('em-conditions');
+          if (card.important_conditions && card.important_conditions.length > 0) {
+            condBox.innerHTML = card.important_conditions.map(c => `<span class="badge badge-warning" style="font-size: 0.95rem; margin-right: 6px; padding: 4px 10px;"><i class="fa-solid fa-disease"></i> ${c}</span>`).join('');
+          } else {
+            condBox.innerHTML = `<span style="font-size: 0.95rem; color: #64748b;">No recorded chronic medical conditions</span>`;
+          }
+
+          // Medications
+          const medBox = document.getElementById('em-medications');
+          if (card.medications && card.medications.length > 0) {
+            medBox.innerHTML = card.medications.map(m => `<span class="badge badge-success" style="font-size: 0.95rem; margin-right: 6px; padding: 4px 10px;"><i class="fa-solid fa-prescription-bottle-medical"></i> ${m}</span>`).join('');
+          } else {
+            medBox.innerHTML = `<span style="font-size: 0.95rem; color: #64748b;">No active prescribed medications recorded</span>`;
+          }
+        }
+      } catch (e) {
+        console.error('Failed to load emergency pass:', e);
+      }
+    });
+  </script>
+</body>
+</html>

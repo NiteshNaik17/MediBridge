@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Directory - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item"><a href="/hospital/dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        <li class="sidebar-item active"><a href="/hospital/patients.html"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li class="sidebar-item"><a href="/hospital/records.html"><i class="fa-solid fa-file-medical"></i> Medical Records</a></li>
+        <li class="sidebar-item"><a href="/hospital/appointments.html"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-header">
+        <div>
+          <h1>Patient Management Directory</h1>
+          <p class="text-muted">Search connected patient profiles and authorized digital health records</p>
+        </div>
+        <div class="header-actions">
+          <input type="text" id="patient-search-input" onkeyup="filterPatientDirectory()" class="form-control" placeholder="Search by name or Health ID..." style="width: 280px;">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Digital Health ID</th>
+                <th>Age / Gender</th>
+                <th>Blood Group</th>
+                <th>Severe Allergies</th>
+                <th>Authorization Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="patients-dir-tbody">
+              <tr>
+                <td><strong>Sarah Connor</strong></td>
+                <td><span class="badge badge-info">MB-9082-4112</span></td>
+                <td>34 Y/O (Female)</td>
+                <td><span class="badge badge-danger">O+</span></td>
+                <td>Penicillin, Peanuts</td>
+                <td><span class="badge badge-success"><i class="fa-solid fa-lock-open"></i> Full Access</span></td>
+                <td><a href="/hospital/records.html?patient_id=pat-201" class="btn btn-primary btn-sm">View Medical Records</a></td>
+              </tr>
+              <tr>
+                <td><strong>Michael Vance</strong></td>
+                <td><span class="badge badge-info">MB-1029-3847</span></td>
+                <td>45 Y/O (Male)</td>
+                <td><span class="badge badge-danger">A+</span></td>
+                <td>Aspirin</td>
+                <td><span class="badge badge-success"><i class="fa-solid fa-lock-open"></i> Full Access</span></td>
+                <td><a href="/hospital/records.html?patient_id=pat-202" class="btn btn-primary btn-sm">View Medical Records</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/hospital.js"></script>
+  <script>
+    function filterPatientDirectory() {
+      const q = document.getElementById('patient-search-input').value.toLowerCase();
+      const rows = document.querySelectorAll('#patients-dir-tbody tr');
+      rows.forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

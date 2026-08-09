@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Hospitals & Doctors - Admin Portal - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Admin Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="/admin/dashboard.html"><i class="fa-solid fa-chart-pie"></i> System Analytics</a>
+        </li>
+        <li class="sidebar-item active">
+          <a href="/admin/hospitals.html"><i class="fa-solid fa-hospital"></i> Hospitals & Doctors</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/admin/users.html"><i class="fa-solid fa-users-gear"></i> User Directory</a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-badge" style="margin-bottom: 10px;">
+          <div class="avatar" style="background: #9333ea;">AD</div>
+          <div>
+            <h4 style="font-size: 0.85rem;">System Admin</h4>
+            <span style="font-size: 0.75rem; color: var(--accent-green);"><i class="fa-solid fa-shield-halved"></i> Superuser</span>
+          </div>
+        </div>
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="top-header">
+        <div>
+          <h1>Hospitals & Doctors Management</h1>
+          <p class="text-muted">Register, inspect, and manage all hospitals, hospital IDs, and assigned doctors</p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" onclick="openAdminAddDoctorModal()">
+            <i class="fa-solid fa-user-doctor"></i> Add Doctor
+          </button>
+          <button class="btn btn-primary" onclick="openAddHospitalAdminModal()">
+            <i class="fa-solid fa-plus"></i> Add Hospital with ID
+          </button>
+        </div>
+      </div>
+
+      <!-- Section 1: Hospitals Directory -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-solid fa-hospital"></i> Registered Hospitals Directory</h3>
+          <button class="btn btn-outline btn-sm" onclick="openAddHospitalAdminModal()"><i class="fa-solid fa-plus"></i> Add Hospital ID</button>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Hospital ID</th>
+                <th>Hospital Name</th>
+                <th>Registration Number</th>
+                <th>Address</th>
+                <th>Doctors</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-hospitals-tbody">
+              <!-- Dynamically Populated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 2: Doctors Directory with Hospital Selector Filter -->
+      <div class="card" style="margin-top: 2rem;">
+        <div class="card-header" style="flex-wrap: wrap; gap: 1rem;">
+          <h3 class="card-title"><i class="fa-solid fa-user-doctor"></i> Registered Doctors Directory</h3>
+          
+          <!-- Hospital Selector Filter -->
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; max-width: 420px;">
+            <label for="admin-hosp-filter" style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap;">
+              <i class="fa-solid fa-filter"></i> Select Hospital:
+            </label>
+            <select id="admin-hosp-filter" class="form-control" onchange="filterDoctorsByHospital()">
+              <option value="all">-- All Hospitals (Show All Doctors) --</option>
+            </select>
+          </div>
+
+          <button class="btn btn-outline btn-sm" onclick="openAdminAddDoctorModal()"><i class="fa-solid fa-plus"></i> Register Doctor</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+                <th>Specialty / Dept</th>
+                <th>Qualifications</th>
+                <th>Assigned Hospital ID</th>
+                <th>Hospital Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-doctors-tbody">
+              <!-- Dynamically Populated by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Admin Add Hospital Modal -->
+  <div class="modal-overlay" id="admin-hosp-modal">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+        <h3 style="color: var(--primary-500);"><i class="fa-solid fa-hospital"></i> Register Hospital with Hospital ID</h3>
+        <button onclick="closeAddHospitalAdminModal()" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <form id="admin-add-hosp-form" onsubmit="submitAdminNewHospital(event)">
+        <div class="form-group">
+          <label for="admin_hosp_id">Hospital ID (Must match when Doctors register, e.g. hosp-101)</label>
+          <input type="text" id="admin_hosp_id" class="form-control" placeholder="e.g. hosp-101 or hosp-apollo" required>
+        </div>
+
+        <div class="form-group">
+          <label for="admin_hosp_name">Hospital Official Name</label>
+          <input type="text" id="admin_hosp_name" class="form-control" placeholder="e.g. Apollo General Hospital" required>
+        </div>
+
+        <div class="form-group">
+          <label for="admin_hosp_reg">Registration / License Number</label>
+          <input type="text" id="admin_hosp_reg" class="form-control" placeholder="e.g. REG-HOSP-2026-9082">
+        </div>
+
+        <div class="form-group">
+          <label for="admin_hosp_address">Physical Address</label>
+          <textarea id="admin_hosp_address" class="form-control" placeholder="Full hospital street address"></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem;">
+          <button type="button" onclick="closeAddHospitalAdminModal()" class="btn btn-outline">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Register Hospital ID</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Add Doctor Modal -->
+  <div class="modal-overlay" id="admin-doc-modal">
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+        <h3 style="color: var(--primary-500);"><i class="fa-solid fa-user-doctor"></i> Add Doctor to Hospital</h3>
+        <button onclick="closeAdminAddDoctorModal()" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+      </div>
+
+      <form id="admin-add-doc-form" onsubmit="submitAdminNewDoctor(event)">
+        <div class="form-group">
+          <label for="admin_doc_hosp_id">Select Hospital ID</label>
+          <select id="admin_doc_hosp_id" class="form-control" required>
+            <!-- Populated dynamically by admin.js -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="admin_doc_id">Doctor ID</label>
+          <input type="text" id="admin_doc_id" class="form-control" placeholder="e.g. DOC-9082-41" required>
+        </div>
+
+        <div class="form-group">
+          <label for="admin_doc_name">Doctor Full Name</label>
+          <input type="text" id="admin_doc_name" class="form-control" placeholder="e.g. Dr. Sarah Jenkins" required>
+        </div>
+
+        <div class="form-group">
+          <label for="admin_doc_specialty">Specialty / Department</label>
+          <input type="text" id="admin_doc_specialty" class="form-control" placeholder="e.g. Cardiology, Neurology" required>
+        </div>
+
+        <div class="form-group">
+          <label for="admin_doc_qual">Qualification</label>
+          <input type="text" id="admin_doc_qual" class="form-control" placeholder="e.g. MD, MBBS, FACC">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem;">
+          <button type="button" onclick="closeAdminAddDoctorModal()" class="btn btn-outline">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Register Doctor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

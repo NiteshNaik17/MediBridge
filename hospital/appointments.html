@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Appointments - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item"><a href="/hospital/dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        <li class="sidebar-item"><a href="/hospital/patients.html"><i class="fa-solid fa-hospital-user"></i> Patients</a></li>
+        <li class="sidebar-item"><a href="/hospital/records.html"><i class="fa-solid fa-file-medical"></i> Medical Records</a></li>
+        <li class="sidebar-item active"><a href="/hospital/appointments.html"><i class="fa-solid fa-calendar-check"></i> Appointments</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-header">
+        <div>
+          <h1>Appointment Management</h1>
+          <p class="text-muted">Schedule and manage doctor patient consultations</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Appointment ID</th>
+                <th>Patient Name</th>
+                <th>Assigned Doctor</th>
+                <th>Department</th>
+                <th>Date & Time</th>
+                <th>Consultation Reason</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="appointments-page-tbody">
+              <tr>
+                <td><strong>apt-401</strong></td>
+                <td>Sarah Connor</td>
+                <td>Dr. Aris Thorne</td>
+                <td>Cardiology</td>
+                <td>2026-08-20 at 10:30 AM</td>
+                <td>Routine Diabetes & Heart Follow-up</td>
+                <td><span class="badge badge-success">Confirmed</span></td>
+              </tr>
+              <tr>
+                <td><strong>apt-402</strong></td>
+                <td>Michael Vance</td>
+                <td>Dr. Elena Rostova</td>
+                <td>Neurology</td>
+                <td>2026-08-22 at 02:15 PM</td>
+                <td>Frequent Migraine Consultation</td>
+                <td><span class="badge badge-warning">Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/hospital.js"></script>
+</body>
+</html>

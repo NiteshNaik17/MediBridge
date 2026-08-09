@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard - MediBridge AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active">
+          <a href="/patient/dashboard.html"><i class="fa-solid fa-chart-line"></i> <span class="menu-text">Dashboard</span></a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/patient/profile.html"><i class="fa-solid fa-user-doctor"></i> <span class="menu-text">Health Profile</span></a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/patient/timeline.html"><i class="fa-solid fa-timeline"></i> <span class="menu-text">Medical Timeline</span></a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/patient/upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> <span class="menu-text">Upload Reports</span></a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/patient/emergency.html"><i class="fa-solid fa-truck-medical"></i> <span class="menu-text">Emergency Card</span></a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-badge">
+          <div class="avatar">SC</div>
+          <div>
+            <h4 style="font-size: 0.85rem;" id="pat-name">Sarah Connor</h4>
+            <span style="font-size: 0.75rem; color: var(--primary-500);" id="pat-health-id">MB-9082-4112</span>
+          </div>
+        </div>
+        <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%; margin-top: 10px;">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Portal Content -->
+    <main class="main-content">
+      <div class="top-header">
+        <div>
+          <h1>Patient Health Dashboard</h1>
+          <p class="text-muted">Centralized Personal Health Records & AI Intelligence</p>
+        </div>
+        <div class="header-actions">
+          <a href="/patient/emergency.html" class="btn btn-green">
+            <i class="fa-solid fa-qrcode"></i> View Emergency QR Card
+          </a>
+        </div>
+      </div>
+
+      <!-- AI Summary Banner Container -->
+      <div id="ai-summary-container"></div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-droplet"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="pat-blood-group">O+</div>
+            <div class="stat-label">Blood Group</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-user-clock"></i></div>
+          <div class="stat-info">
+            <div class="stat-value" id="pat-age-gender">34 Y/O (Female)</div>
+            <div class="stat-label">Age & Gender</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fa-solid fa-shield-virus"></i></div>
+          <div class="stat-info">
+            <div class="stat-label" style="font-size: 0.8rem; text-transform: uppercase;">Known Allergies</div>
+            <div id="pat-allergies-list" style="margin-top: 4px;"><span class="badge badge-danger">Penicillin</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Shortcuts -->
+      <div class="features-grid" style="margin-bottom: 2rem;">
+        <div class="card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 0.8rem; font-size: 1.1rem;"><i class="fa-solid fa-timeline" style="color: var(--primary-500);"></i> Interactive Timeline</h3>
+          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Review your year-by-year clinical medical timeline updated automatically from hospital uploads.</p>
+          <a href="/patient/timeline.html" class="btn btn-outline btn-sm">Explore Timeline</a>
+        </div>
+
+        <div class="card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 0.8rem; font-size: 1.1rem;"><i class="fa-solid fa-file-arrow-up" style="color: var(--accent-green);"></i> Upload Old Reports</h3>
+          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Scan your previous paper prescriptions or lab PDFs with our built-in OCR document reader.</p>
+          <a href="/patient/upload.html" class="btn btn-secondary btn-sm">Upload & Scan</a>
+        </div>
+
+        <div class="card" style="margin-bottom: 0;">
+          <h3 style="margin-bottom: 0.8rem; font-size: 1.1rem;"><i class="fa-solid fa-hospital" style="color: #9333ea;"></i> Hospital Access</h3>
+          <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.2rem;">Manage connected healthcare providers and authorize medical history sharing.</p>
+          <a href="/patient/profile.html" class="btn btn-outline btn-sm">Manage Permissions</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/patient.js"></script>
+</body>
+</html>
