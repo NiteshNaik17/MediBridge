@@ -1,44 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health Profile & Hospital Connections - MediBridge AI</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dashboard.css">
+  <title>Health Profile - MediBridge AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
   <div class="app-container">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+        <a href="../index.html" class="logo" style="font-size: 1.2rem;">
           <i class="fa-solid fa-heart-pulse"></i>
           <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
         </a>
       </div>
 
       <ul class="sidebar-menu">
-        <li class="sidebar-item"><a href="/patient/dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-        </li>
-        <li class="sidebar-item active"><a href="/patient/profile.html"><i class="fa-solid fa-user-doctor"></i> Health
-            Profile</a></li>
-        <li class="sidebar-item"><a href="/patient/timeline.html"><i class="fa-solid fa-timeline"></i> Medical
-            Timeline</a></li>
-        <li class="sidebar-item"><a href="/patient/upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload
-            Reports</a></li>
-        <li class="sidebar-item"><a href="/patient/emergency.html"><i class="fa-solid fa-truck-medical"></i> Emergency
-            Card</a></li>
+        <li class="sidebar-item"><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        <li class="sidebar-item active"><a href="profile.html"><i class="fa-solid fa-user"></i> Health Profile</a></li>
+        <li class="sidebar-item"><a href="timeline.html"><i class="fa-solid fa-timeline"></i> Medical Timeline</a></li>
+        <li class="sidebar-item"><a href="upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Reports</a></li>
+        <li class="sidebar-item"><a href="emergency.html"><i class="fa-solid fa-id-card"></i> Emergency Card</a></li>
       </ul>
 
       <div class="sidebar-footer">
         <div class="user-badge" style="margin-bottom: 10px;">
-          <div class="avatar" id="sidebar-avatar">--</div>
+          <div class="avatar" id="patient-avatar-initials">SC</div>
           <div>
-            <h4 style="font-size: 0.85rem;" id="pat-name">Loading...</h4>
-            <span style="font-size: 0.75rem; color: var(--primary-500);" id="pat-health-id">---</span>
+            <h4 style="font-size: 0.85rem;" id="patient-sidebar-name">Sarah Connor</h4>
+            <span style="font-size: 0.75rem; color: var(--text-muted);" id="patient-sidebar-id">MB-9082-4112</span>
           </div>
         </div>
         <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
@@ -51,185 +45,84 @@
           <h1>Digital Health Profile</h1>
           <p class="text-muted">Personal demographics, medical metrics, and emergency contacts</p>
         </div>
-        <div class="header-actions">
-          <button class="btn btn-primary" onclick="openEditProfileModal()">
-            <i class="fa-solid fa-user-pen"></i> Edit Profile
-          </button>
-        </div>
+        <button class="btn btn-primary" onclick="toggleEditProfileModal()"><i class="fa-solid fa-user-pen"></i> Edit Profile</button>
       </div>
 
-      <!-- Health ID Passport Header Card -->
-      <div class="card"
-        style="background: linear-gradient(135deg, var(--primary-50) 0%, #ffffff 100%); border-color: var(--primary-200); margin-bottom: 2rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <!-- Health ID Badge Header -->
+      <div class="card" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: #bae6fd;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
           <div>
-            <span class="badge badge-info" style="margin-bottom: 6px;">Official Digital Health Passport</span>
-            <h2 style="font-size: 1.8rem;" id="prof-header-name">Loading Profile...</h2>
-            <p style="font-weight: 800; color: var(--primary-500); font-size: 1.1rem; margin-top: 4px;">
-              Health ID: <span id="prof-header-health-id">---</span>
-            </p>
+            <span class="badge badge-info" style="margin-bottom: 8px;">Official Digital Health Passport</span>
+            <h2 style="font-size: 1.8rem;" id="prof-name">Sarah Connor</h2>
+            <span style="font-size: 1.1rem; font-weight: 700; color: var(--primary-500);" id="prof-health-id">Health ID: MB-9082-4112</span>
           </div>
-          <div style="text-align: right;">
-            <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> Account Verified</span>
+          <div>
+            <span class="badge badge-success"><i class="fa-solid fa-check-circle"></i> Account Verified</span>
           </div>
         </div>
       </div>
 
-      <!-- Detailed Personal & Medical Demographics Grid -->
-      <div class="card" style="margin-bottom: 2rem;">
+      <!-- Patient Demographics Section -->
+      <div class="card" style="margin-top: 1.5rem;">
         <div class="card-header">
-          <h3 class="card-title"><i class="fa-solid fa-id-card"></i> Registered Patient Details</h3>
+          <h3 class="card-title"><i class="fa-solid fa-address-card"></i> Registered Patient Details</h3>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;">FULL
-              NAME</span>
-            <p style="font-weight: 700; font-size: 1.05rem;" id="prof-full-name">--</p>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Full Name</span>
+            <h4 style="margin-top: 4px;" id="prof-fullname">Sarah Connor</h4>
           </div>
-
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;">DIGITAL HEALTH
-              ID</span>
-            <p style="font-weight: 700; font-size: 1.05rem; color: var(--primary-500);" id="prof-health-id">--</p>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Digital Health ID</span>
+            <h4 style="margin-top: 4px; color: var(--primary-500);" id="prof-hid">MB-9082-4112</h4>
           </div>
-
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;">AGE &
-              GENDER</span>
-            <p style="font-weight: 700; font-size: 1.05rem;" id="prof-age-gender">--</p>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Age & Gender</span>
+            <h4 style="margin-top: 4px;" id="prof-age-gender">34 Y/O (Female)</h4>
           </div>
-
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;">BLOOD
-              GROUP</span>
-            <p style="font-weight: 700; font-size: 1.05rem; color: #dc2626;" id="prof-blood-group">--</p>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Blood Group</span>
+            <h4 style="margin-top: 4px; color: #ef4444;" id="prof-blood">O-Positive (O+)</h4>
           </div>
-
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;">EMAIL
-              ADDRESS</span>
-            <p style="font-weight: 700; font-size: 1.05rem;" id="prof-email">--</p>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Email Address</span>
+            <h4 style="margin-top: 4px;" id="prof-email">sarah@gmail.com</h4>
           </div>
-
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;">CONTACT
-              PHONE</span>
-            <p style="font-weight: 700; font-size: 1.05rem;" id="prof-phone">--</p>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Contact Phone</span>
+            <h4 style="margin-top: 4px;" id="prof-phone">+1-555-0199</h4>
           </div>
-
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;">KNOWN
-              ALLERGIES</span>
-            <div id="prof-allergies-list" style="margin-top: 4px;">--</div>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;">Known Allergies</span>
+            <div style="margin-top: 4px;" id="prof-allergies-list">
+              <span class="badge badge-warning">Penicillin</span>
+            </div>
           </div>
-
           <div>
-            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; font-weight: 600;"><i
-                class="fa-solid fa-truck-medical" style="color: #ef4444;"></i> EMERGENCY CONTACT</span>
-            <p style="font-weight: 700; font-size: 1.05rem; color: var(--text-dark);" id="prof-emergency-contact">--</p>
+            <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; font-weight: 700;"><i class="fa-solid fa-truck-medical"></i> Emergency Contact</span>
+            <h4 style="margin-top: 4px;" id="prof-emergency">John Connor (Son): +1-555-0199</h4>
           </div>
         </div>
       </div>
 
-      <!-- Hospital Connection Authorizations -->
-      <div class="card">
+      <!-- Connected Hospitals Permissions Section -->
+      <div class="card" style="margin-top: 1.5rem;">
         <div class="card-header">
           <h3 class="card-title"><i class="fa-solid fa-hospital-user"></i> Hospital Access Authorizations</h3>
         </div>
         <p class="text-muted" style="margin-bottom: 1.2rem; font-size: 0.9rem;">
           Control which healthcare institutions are authorized to view and upload to your centralized medical timeline.
         </p>
-
-        <div id="hospital-connections-list">
-          <!-- Dynamically Populated by patient.js -->
+        
+        <div id="prof-hospitals-list">
+          <!-- Populated by JS -->
         </div>
       </div>
     </main>
   </div>
 
-  <!-- Edit Profile & Emergency Contact Modal -->
-  <div class="modal-overlay" id="edit-profile-modal">
-    <div class="modal-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
-        <h3 style="color: var(--primary-500);"><i class="fa-solid fa-user-pen"></i> Update Profile & Emergency Contact
-        </h3>
-        <button onclick="closeEditProfileModal()"
-          style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
-      </div>
-
-      <form id="edit-profile-form" onsubmit="saveProfileUpdates(event)">
-        <div class="form-group">
-          <label for="edit-name">Full Name</label>
-          <input type="text" id="edit-name" class="form-control" required>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div class="form-group">
-            <label for="edit-age">Age</label>
-            <input type="number" id="edit-age" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="edit-gender">Gender</label>
-            <select id="edit-gender" class="form-control">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="edit-blood">Blood Group</label>
-          <select id="edit-blood" class="form-control">
-            <option value="A-Positive (A+)">A-Positive (A+)</option>
-            <option value="O-Positive (O+)">O-Positive (O+)</option>
-            <option value="O-Negative (O-)">O-Negative (O-)</option>
-            <option value="A-Negative (A-)">A-Negative (A-)</option>
-            <option value="B-Positive (B+)">B-Positive (B+)</option>
-            <option value="AB-Positive (AB+)">AB-Positive (AB+)</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="edit-allergies">Known Allergies (Comma separated)</label>
-          <input type="text" id="edit-allergies" class="form-control" placeholder="e.g. Penicillin, Peanuts">
-        </div>
-
-        <!-- Emergency Contact Section -->
-        <div
-          style="background: var(--primary-50); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--primary-200); margin-bottom: 1.2rem;">
-          <h4
-            style="color: var(--primary-700); margin-bottom: 0.8rem; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-truck-medical"></i> Emergency Contact Details
-          </h4>
-          <div class="form-group">
-            <label for="edit-em-name">Emergency Contact Name</label>
-            <input type="text" id="edit-em-name" class="form-control" placeholder="e.g. Clara Smith">
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div class="form-group">
-              <label for="edit-em-relation">Relationship</label>
-              <input type="text" id="edit-em-relation" class="form-control" placeholder="e.g. Spouse, Sister, Parent">
-            </div>
-            <div class="form-group">
-              <label for="edit-em-phone">Emergency Phone</label>
-              <input type="text" id="edit-em-phone" class="form-control" placeholder="+1-555-9988">
-            </div>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; gap: 10px;">
-          <button type="button" onclick="closeEditProfileModal()" class="btn btn-outline">Cancel</button>
-          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Profile
-            Updates</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script src="/js/auth.js"></script>
-  <script src="/js/patient.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/patient.js"></script>
 </body>
-
 </html>
