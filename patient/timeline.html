@@ -4,29 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medical Timeline - MediBridge AI</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
   <div class="app-container">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+        <a href="../index.html" class="logo" style="font-size: 1.2rem;">
           <i class="fa-solid fa-heart-pulse"></i>
           <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
         </a>
       </div>
 
       <ul class="sidebar-menu">
-        <li class="sidebar-item"><a href="/patient/dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
-        <li class="sidebar-item"><a href="/patient/profile.html"><i class="fa-solid fa-user-doctor"></i> Health Profile</a></li>
-        <li class="sidebar-item active"><a href="/patient/timeline.html"><i class="fa-solid fa-timeline"></i> Medical Timeline</a></li>
-        <li class="sidebar-item"><a href="/patient/upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Reports</a></li>
-        <li class="sidebar-item"><a href="/patient/emergency.html"><i class="fa-solid fa-truck-medical"></i> Emergency Card</a></li>
+        <li class="sidebar-item"><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        <li class="sidebar-item"><a href="profile.html"><i class="fa-solid fa-user"></i> Health Profile</a></li>
+        <li class="sidebar-item active"><a href="timeline.html"><i class="fa-solid fa-timeline"></i> Medical Timeline</a></li>
+        <li class="sidebar-item"><a href="upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Reports</a></li>
+        <li class="sidebar-item"><a href="emergency.html"><i class="fa-solid fa-id-card"></i> Emergency Card</a></li>
       </ul>
 
       <div class="sidebar-footer">
+        <div class="user-badge" style="margin-bottom: 10px;">
+          <div class="avatar" id="patient-avatar-initials">SC</div>
+          <div>
+            <h4 style="font-size: 0.85rem;" id="patient-sidebar-name">Sarah Connor</h4>
+            <span style="font-size: 0.75rem; color: var(--text-muted);" id="patient-sidebar-id">MB-9082-4112</span>
+          </div>
+        </div>
         <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
       </div>
     </aside>
@@ -34,20 +42,36 @@
     <main class="main-content">
       <div class="top-header">
         <div>
-          <h1>Medical Health Timeline</h1>
-          <p class="text-muted">Chronological clinical history aggregated across all hospitals</p>
+          <h1>Unified Medical Timeline</h1>
+          <p class="text-muted">Multi-hospital aggregated medical history, diagnostic reports, and prescriptions</p>
+        </div>
+        <a href="upload.html" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-up"></i> Upload New Report</a>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+          <div style="flex: 1; min-width: 200px;">
+            <input type="text" id="timeline-search" class="form-control" placeholder="Search by diagnosis, doctor, or hospital..." onkeyup="filterTimelineEvents()">
+          </div>
+          <div>
+            <select id="timeline-hospital-filter" class="form-control" onchange="filterTimelineEvents()">
+              <option value="all">All Hospitals</option>
+              <option value="hosp-101">Apollo General Hospital</option>
+              <option value="hosp-102">St. Jude Medical Center</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="timeline" id="timeline-container">
-          <!-- Populated dynamically by patient.js -->
-        </div>
+      <!-- Visual Timeline Container -->
+      <div id="patient-timeline-container" class="timeline-wrapper">
+        <!-- Dynamically rendered by patient.js -->
       </div>
     </main>
   </div>
 
-  <script src="/js/auth.js"></script>
-  <script src="/js/patient.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/patient.js"></script>
 </body>
 </html>
