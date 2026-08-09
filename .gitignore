@@ -1,0 +1,19 @@
+# Python byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment & Secret files (DO NOT COMMIT SECRETS TO PUBLIC GITHUB)
+.env
+.env.local
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Operating System & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
