@@ -3,30 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload Medical Documents - MediBridge AI</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/dashboard.css">
+  <title>Upload Medical Report - MediBridge AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
   <div class="app-container">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="/index.html" class="logo" style="font-size: 1.2rem;">
+        <a href="../index.html" class="logo" style="font-size: 1.2rem;">
           <i class="fa-solid fa-heart-pulse"></i>
           <span>MediBridge <span style="color: var(--accent-green)">AI</span></span>
         </a>
       </div>
 
       <ul class="sidebar-menu">
-        <li class="sidebar-item"><a href="/patient/dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
-        <li class="sidebar-item"><a href="/patient/profile.html"><i class="fa-solid fa-user-doctor"></i> Health Profile</a></li>
-        <li class="sidebar-item"><a href="/patient/timeline.html"><i class="fa-solid fa-timeline"></i> Medical Timeline</a></li>
-        <li class="sidebar-item active"><a href="/patient/upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Reports</a></li>
-        <li class="sidebar-item"><a href="/patient/emergency.html"><i class="fa-solid fa-truck-medical"></i> Emergency Card</a></li>
+        <li class="sidebar-item"><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        <li class="sidebar-item"><a href="profile.html"><i class="fa-solid fa-user"></i> Health Profile</a></li>
+        <li class="sidebar-item"><a href="timeline.html"><i class="fa-solid fa-timeline"></i> Medical Timeline</a></li>
+        <li class="sidebar-item active"><a href="upload.html"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Reports</a></li>
+        <li class="sidebar-item"><a href="emergency.html"><i class="fa-solid fa-id-card"></i> Emergency Card</a></li>
       </ul>
 
       <div class="sidebar-footer">
+        <div class="user-badge" style="margin-bottom: 10px;">
+          <div class="avatar" id="patient-avatar-initials">SC</div>
+          <div>
+            <h4 style="font-size: 0.85rem;" id="patient-sidebar-name">Sarah Connor</h4>
+            <span style="font-size: 0.75rem; color: var(--text-muted);" id="patient-sidebar-id">MB-9082-4112</span>
+          </div>
+        </div>
         <button onclick="logoutUser()" class="btn btn-outline btn-sm" style="width: 100%;">Logout</button>
       </div>
     </aside>
@@ -34,77 +42,42 @@
     <main class="main-content">
       <div class="top-header">
         <div>
-          <h1>AI Document Scanner & Upload</h1>
-          <p class="text-muted">Upload prescriptions, PDF reports, or diagnostic lab papers</p>
+          <h1>AI Document OCR Scanner</h1>
+          <p class="text-muted">Upload prescriptions, discharge summaries, or blood reports to auto-extract data into your timeline</p>
         </div>
       </div>
 
       <div class="card">
-        <div class="dropzone" id="document-dropzone" onclick="document.getElementById('patient-file-input').click()">
-          <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
-          <h3>Click or Drag & Drop Medical Report File Here</h3>
-          <p class="text-muted" style="font-size: 0.9rem; margin-top: 6px;">Supports PDF, PNG, JPG, JPEG, TXT (Max 16MB)</p>
-          <input type="file" id="patient-file-input" style="display: none;" accept=".pdf,.png,.jpg,.jpeg,.txt" onchange="handlePatientFileUpload()">
-        </div>
+        <form id="patient-upload-form" onsubmit="handlePatientDocumentUpload(event)">
+          <div style="border: 2px dashed var(--primary-300); border-radius: var(--radius-lg); padding: 3rem; text-align: center; background: var(--primary-50); cursor: pointer; position: relative;" onclick="document.getElementById('medical-doc-file').click()">
+            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3.5rem; color: var(--primary-500); margin-bottom: 1rem;"></i>
+            <h3>Drag & Drop your Medical File Here</h3>
+            <p class="text-muted" style="margin-top: 6px; font-size: 0.9rem;">Supports PDF documents, PNG, JPG, or TXT medical files up to 15MB</p>
+            <input type="file" id="medical-doc-file" style="display: none;" accept=".pdf,.png,.jpg,.jpeg,.txt" onchange="displaySelectedFileName(this)">
+            <span id="selected-file-name" class="badge badge-info" style="margin-top: 1rem; display: inline-block;">No file selected</span>
+          </div>
 
-        <!-- AI Extraction Live Results -->
-        <div id="patient-ocr-results" style="display: none; margin-top: 2rem;"></div>
+          <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+            <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2rem;">
+              <i class="fa-solid fa-microchip"></i> Scan & Process Document with AI
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- OCR Parsing Result Live Preview -->
+      <div class="card" id="ocr-preview-card" style="display: none; margin-top: 1.5rem;">
+        <div class="card-header">
+          <h3 class="card-title" style="color: var(--accent-green);"><i class="fa-solid fa-robot"></i> AI Extractions Results</h3>
+        </div>
+        <div id="ocr-results-content">
+          <!-- Populated dynamically by patient.js -->
+        </div>
       </div>
     </main>
   </div>
 
-  <script src="/js/auth.js"></script>
-  <script src="/js/patient.js"></script>
-  <script>
-    async function handlePatientFileUpload() {
-      const fileInput = document.getElementById('patient-file-input');
-      const resultsContainer = document.getElementById('patient-ocr-results');
-
-      if (!fileInput.files[0]) return;
-
-      const activePatientId = getLoggedInPatientId();
-
-      const formData = new FormData();
-      formData.append('file', fileInput.files[0]);
-      formData.append('patient_id', activePatientId);
-      formData.append('auto_save', 'true');
-
-      resultsContainer.style.display = 'block';
-      resultsContainer.innerHTML = '<p><i class="fa-solid fa-spinner fa-spin"></i> Processing document with MediBridge AI OCR Engine...</p>';
-
-      try {
-        const res = await fetch('/api/ai/extract-doc', {
-          method: 'POST',
-          body: formData
-        });
-        const result = await res.json();
-
-        if (result.success && result.data) {
-          const d = result.data;
-          showToast('Medical record analyzed and saved to your health timeline!', 'success');
-          resultsContainer.innerHTML = `
-            <div class="ai-banner">
-              <h3><i class="fa-solid fa-circle-check"></i> Document Scanned & Saved to Your Health Timeline</h3>
-              <div class="ai-banner-content">
-                <p><strong>Extracted Diagnosis:</strong> ${d.diagnosis}</p>
-                <p><strong>Detected Doctor:</strong> ${d.doctor_name}</p>
-                <p><strong>Prescribed Medications:</strong> ${d.medicines.join(', ')}</p>
-                <p><strong>Report Date:</strong> ${d.date}</p>
-                <div style="margin-top: 1rem;">
-                  <a href="/patient/timeline.html" class="btn btn-secondary btn-sm">
-                    <i class="fa-solid fa-timeline"></i> View Updated Medical Timeline
-                  </a>
-                </div>
-              </div>
-            </div>
-          `;
-        } else {
-          showToast(result.message || 'Scanning failed.', 'error');
-        }
-      } catch (err) {
-        showToast('Document extraction error.', 'error');
-      }
-    }
-  </script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/patient.js"></script>
 </body>
 </html>
